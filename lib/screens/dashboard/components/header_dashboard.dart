@@ -18,7 +18,7 @@ class HeaderDashboard extends StatefulWidget {
 }
 
 class _HeaderDashboardState extends State<HeaderDashboard> {
-  late String username;
+  String username = '';
   @override
   void initState() {
     _loadUserData();
@@ -28,7 +28,6 @@ class _HeaderDashboardState extends State<HeaderDashboard> {
   _loadUserData() async {
     SharedPreferences localStorage = await SharedPreferences.getInstance();
     var user = jsonDecode(localStorage.getString('user'));
-
     if (user != null) {
       setState(() {
         username = user['username'];

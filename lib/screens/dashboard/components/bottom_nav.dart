@@ -1,6 +1,7 @@
 import 'package:dotask/screens/contains.dart';
 import 'package:dotask/screens/dashboard/dashboard.dart';
 import 'package:dotask/screens/event/event.dart';
+import 'package:dotask/screens/list/addTask.dart';
 import 'package:dotask/screens/list/list.dart';
 import 'package:dotask/screens/profil/profil.dart';
 import 'package:flutter/material.dart';
@@ -35,7 +36,7 @@ class BottomNavigation extends StatelessWidget {
                 children: <Widget>[
                   InkWell(
                     onTap: () {
-                      Navigator.pushReplacement(
+                      Navigator.push(
                         context,
                         MaterialPageRoute(
                           builder: (context) {
@@ -50,7 +51,7 @@ class BottomNavigation extends StatelessWidget {
                   ),
                   InkWell(
                     onTap: () {
-                      Navigator.pushReplacement(
+                      Navigator.push(
                         context,
                         MaterialPageRoute(
                           builder: (context) {
@@ -63,28 +64,40 @@ class BottomNavigation extends StatelessWidget {
                       child: Image.asset(list),
                     ),
                   ),
-                  SizedBox(
-                    width: 62,
-                    height: 62,
-                    child: DecoratedBox(
-                      decoration: BoxDecoration(
-                        color: kBgColor,
-                        borderRadius: BorderRadius.circular(50),
-                      ),
-                      child: Container(
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: <Widget>[
-                            Image.asset("assets/icons/Add.png")
-                          ],
+                  InkWell(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) {
+                            return AddTask();
+                          },
+                        ),
+                      );
+                    },
+                    child: SizedBox(
+                      width: 62,
+                      height: 62,
+                      child: DecoratedBox(
+                        decoration: BoxDecoration(
+                          color: kBgColor,
+                          borderRadius: BorderRadius.circular(50),
+                        ),
+                        child: Container(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: <Widget>[
+                              Image.asset("assets/icons/Add.png")
+                            ],
+                          ),
                         ),
                       ),
                     ),
                   ),
                   InkWell(
                     onTap: () {
-                      Navigator.pushReplacement(
+                      Navigator.push(
                         context,
                         MaterialPageRoute(
                           builder: (context) {
@@ -99,7 +112,7 @@ class BottomNavigation extends StatelessWidget {
                   ),
                   InkWell(
                     onTap: () {
-                      Navigator.pushReplacement(
+                      Navigator.push(
                         context,
                         MaterialPageRoute(
                           builder: (context) {

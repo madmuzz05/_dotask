@@ -1,11 +1,22 @@
 import 'package:dotask/screens/contains.dart';
 import 'package:flutter/material.dart';
 
-class DashBoarCard extends StatelessWidget {
-  const DashBoarCard({
-    Key? key,
-  }) : super(key: key);
+class DashBoarCard extends StatefulWidget {
+  const DashBoarCard(
+      {Key? key,
+      required this.all,
+      required this.complete,
+      required this.canceled,
+      required this.pending})
+      : super(key: key);
 
+  final String complete, canceled, all, pending;
+
+  @override
+  _DashBoarCardState createState() => _DashBoarCardState();
+}
+
+class _DashBoarCardState extends State<DashBoarCard> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -49,7 +60,7 @@ class DashBoarCard extends StatelessWidget {
                                 color: Colors.white),
                           ),
                           Text(
-                            "6 Task",
+                            widget.complete,
                             style: TextStyle(
                                 fontSize: 14,
                                 fontFamily: "Poppins",
@@ -88,7 +99,7 @@ class DashBoarCard extends StatelessWidget {
                           Image.asset("assets/icons/d2.png"),
                           Spacer(),
                           Text(
-                            "Bookmark",
+                            "Pending",
                             style: TextStyle(
                                 fontSize: 17,
                                 fontFamily: "Poppins",
@@ -96,7 +107,7 @@ class DashBoarCard extends StatelessWidget {
                                 color: Colors.white),
                           ),
                           Text(
-                            "2 Task",
+                            widget.pending,
                             style: TextStyle(
                                 fontSize: 14,
                                 fontFamily: "Poppins",
@@ -149,7 +160,7 @@ class DashBoarCard extends StatelessWidget {
                                 color: Colors.white),
                           ),
                           Text(
-                            "8 Task",
+                            widget.all,
                             style: TextStyle(
                                 fontSize: 14,
                                 fontFamily: "Poppins",
@@ -196,7 +207,7 @@ class DashBoarCard extends StatelessWidget {
                                 color: Colors.white),
                           ),
                           Text(
-                            "2 Task",
+                            widget.canceled,
                             style: TextStyle(
                                 fontSize: 14,
                                 fontFamily: "Poppins",

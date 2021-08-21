@@ -1,0 +1,66 @@
+import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
+import 'package:google_fonts/google_fonts.dart';
+
+class SignUp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: Scaffold(
+          backgroundColor: Color(0xFFFFFFFF),
+          body: Stack(
+            children: [
+              Container(
+                width: 360,
+                height: 756,
+                color: Color(0x26EA4335),
+                child: Column(
+                  children: [
+                    Container(
+                      padding: EdgeInsets.only(top: 200),
+                      color: Colors.blue,
+                      child: Text('test', style: TextStyle(fontSize: 40)),
+                    ),
+                    Container(
+                      width: 360,
+                      height: 300,
+                      color: Colors.blue,
+                      child: Column(
+                        children: [
+                          Row(
+                            children: [
+                              Container(
+                                padding: EdgeInsets.only(bottom: 10),
+                                child: TextFormField(
+                                  decoration: InputDecoration(
+                                      prefixIcon: Icon(Icons.mail),
+                                      hintText: "Email or Username"),
+                                ),
+                              ),
+                              Container(
+                                padding: EdgeInsets.only(top: 10),
+                                child: TextFormField(
+                                  decoration: InputDecoration(
+                                      prefixIcon: Icon(Icons.lock),
+                                      hintText: "Password"),
+                                  obscureText: true,
+                                ),
+                              ),
+                            ],
+                          ),
+                          Container(
+                            padding: EdgeInsets.only(top: 20),
+                            color: Colors.blue,
+                            child: Text('test', style: TextStyle(fontSize: 40)),
+                          ),
+                        ],
+                      ),
+                    )
+                  ],
+                ),
+              )
+            ],
+          )),
+    );
+  }
+}

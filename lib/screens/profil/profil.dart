@@ -5,6 +5,25 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:dotask/network/api.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:http/http.dart' as http;
+
+final String url = 'http://10.0.2.2:8000/api/friend';
+Future _getFriend() async {
+  String token = await Network().getToken();
+  var res = await http.get(Uri.parse(url), headers: {
+    'Content-Type': 'application/json',
+    'Accept': 'application/json',
+    'Authorization': 'Bearer $token',
+  });
+  // var res = Network().getData('/task');
+  var body = json.decode(res.body);
+  if (body['success']) {
+    print(body);
+    return body;
+  } else {
+    throw Exception('Gagal');
+  }
+}
 
 class Profil extends StatefulWidget {
   @override
@@ -12,6 +31,30 @@ class Profil extends StatefulWidget {
 }
 
 class _ProfilState extends State<Profil> {
+  String username = '';
+  String address = '';
+  String phone = '';
+  String email = '';
+  void initState() {
+    _loadUserData();
+    _getFriend();
+    super.initState();
+  }
+
+  _loadUserData() async {
+    SharedPreferences localStorage = await SharedPreferences.getInstance();
+    var user = jsonDecode(localStorage.getString('user'));
+
+    if (user != null) {
+      setState(() {
+        username = user['username'];
+        address = user['alamat'];
+        phone = user['phone'];
+        email = user['email'];
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -62,56 +105,32 @@ class _ProfilState extends State<Profil> {
                         Container(
                           child: Row(
                             children: [
-                              Padding(
-                                padding: const EdgeInsets.all(10),
-                                child: Column(
-                                  children: [
-                                    Image.asset("assets/images/erik1.png"),
-                                    Text(
-                                      "Riza Budi",
-                                      style: TextStyle(
-                                          color: kBgColor,
-                                          fontFamily: "Popppins",
-                                          fontSize: 12,
-                                          fontWeight: FontWeight.w400),
-                                    )
-                                  ],
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.all(10),
-                                child: Column(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
-                                  children: [
-                                    Image.asset("assets/images/aad1.png"),
-                                    Text(
-                                      "Miqdad D.",
-                                      style: TextStyle(
-                                          color: kBgColor,
-                                          fontFamily: "Popppins",
-                                          fontSize: 12,
-                                          fontWeight: FontWeight.w400),
-                                    )
-                                  ],
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.all(10),
-                                child: Column(
-                                  children: [
-                                    Image.asset("assets/images/amel1.png"),
-                                    Text(
-                                      "Erika",
-                                      style: TextStyle(
-                                          color: kBgColor,
-                                          fontFamily: "Popppins",
-                                          fontSize: 12,
-                                          fontWeight: FontWeight.w400),
-                                    )
-                                  ],
-                                ),
-                              ),
+                              // FutureBuilder(
+                              //     future: _getFriend(),
+                              //     builder: (BuildContext context,
+                              //         AsyncSnapshot snapshot) {
+                              //       if (snapshot.data != null) {
+                              //         return ListView.builder(
+                              //             scrollDirection: Axis.horizontal,
+                              //             itemCount:
+                              //                 snapshot.data['data'].length,
+                              //             itemBuilder: (context, index) {
+                              //               return Text(snapshot.data['data']
+                              //                   [index]['username']);
+                              //               // Friend(
+                              //               //   foto: "assets/images/roni.png",
+                              //               //   username: snapshot.data['data']
+                              //               //       [index]['username'],
+                              //               // );
+                              //             });
+                              //       } else {
+                              //         return Row(
+                              //           mainAxisAlignment:
+                              //               MainAxisAlignment.center,
+                              //           children: [CircularProgressIndicator()],
+                              //         );
+                              //       }
+                              //     }),
                               Padding(
                                 padding: const EdgeInsets.all(10),
                                 child: Column(
@@ -143,7 +162,7 @@ class _ProfilState extends State<Profil> {
                               ),
                               Spacer(),
                               Text(
-                                "Roniboy",
+                                username,
                                 style: TextStyle(color: kBgColor),
                               ),
                             ],
@@ -171,7 +190,7 @@ class _ProfilState extends State<Profil> {
                               ),
                               Spacer(),
                               Text(
-                                "Roniboy27@gmail.com",
+                                email,
                                 style: TextStyle(color: kBgColor),
                               ),
                             ],
@@ -199,35 +218,7 @@ class _ProfilState extends State<Profil> {
                               ),
                               Spacer(),
                               Text(
-                                "+6288996978347",
-                                style: TextStyle(color: kBgColor),
-                              ),
-                            ],
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 5),
-                          child: SizedBox(
-                            width: size.width * 1,
-                            height: 2,
-                            child: DecoratedBox(
-                              decoration: BoxDecoration(color: kSubTextColor),
-                            ),
-                          ),
-                        ),
-                        Container(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 10, vertical: 10),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                "Date of birth",
-                                style: TextStyle(color: kTitleColor),
-                              ),
-                              Spacer(),
-                              Text(
-                                "19 April 1998",
+                                phone,
                                 style: TextStyle(color: kBgColor),
                               ),
                             ],
@@ -255,7 +246,7 @@ class _ProfilState extends State<Profil> {
                               ),
                               Spacer(),
                               Text(
-                                "Desa Roomo",
+                                address,
                                 style: TextStyle(color: kBgColor),
                               ),
                             ],
@@ -276,14 +267,7 @@ class _ProfilState extends State<Profil> {
                           // decoration: BoxDecoration(color: kBgColor),
                           child: OutlinedButton(
                             onPressed: () {
-                              Navigator.pushReplacement(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) {
-                                    return Login();
-                                  },
-                                ),
-                              );
+                              logout();
                             },
                             child: Text(
                               "Sign Out",
@@ -326,15 +310,68 @@ class _ProfilState extends State<Profil> {
       SharedPreferences localStorage = await SharedPreferences.getInstance();
       localStorage.remove('user');
       localStorage.remove('token');
-      Navigator.push(context, MaterialPageRoute(builder: (context) => Login()));
+      Navigator.push(
+        context,
+        new MaterialPageRoute(builder: (context) => Login()),
+      );
     }
   }
 }
 
-class HeaderProfil extends StatelessWidget {
+class Friend extends StatelessWidget {
+  const Friend({Key? key, required this.username, required this.foto})
+      : super(key: key);
+  final String username, foto;
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.all(10),
+      child: Column(
+        children: [
+          Image.asset(foto),
+          Text(
+            username,
+            style: TextStyle(
+                color: kBgColor,
+                fontFamily: "Popppins",
+                fontSize: 12,
+                fontWeight: FontWeight.w400),
+          )
+        ],
+      ),
+    );
+  }
+}
+
+class HeaderProfil extends StatefulWidget {
   const HeaderProfil({
     Key? key,
   }) : super(key: key);
+
+  @override
+  _HeaderProfilState createState() => _HeaderProfilState();
+}
+
+class _HeaderProfilState extends State<HeaderProfil> {
+  String firstname = '';
+  String lastname = '';
+
+  void initState() {
+    _loadUserData();
+    super.initState();
+  }
+
+  _loadUserData() async {
+    SharedPreferences localStorage = await SharedPreferences.getInstance();
+    var user = jsonDecode(localStorage.getString('user'));
+
+    if (user != null) {
+      setState(() {
+        firstname = user['nama_depan'];
+        lastname = user['nama_belakang'];
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -359,7 +396,7 @@ class HeaderProfil extends StatelessWidget {
           Container(
             padding: EdgeInsets.only(top: 20),
             child: Text(
-              "Muhammad Habbyl Zumroni",
+              firstname + " " + lastname,
               style: TextStyle(
                   color: kTitleColor,
                   fontFamily: "Poppins",

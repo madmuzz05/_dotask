@@ -61,47 +61,44 @@ class _MyEventState extends State<MyEvent> {
               ),
             ),
             Expanded(
-              child: Stack(
-                children: [
+              child:
+                  // Container(
+                  //   height: 40,
+                  //   margin: EdgeInsets.only(left: 20, top: 10, bottom: 0),
+                  //   padding: EdgeInsets.only(bottom: 5),
+                  //   child: ListView(
+                  //     scrollDirection: Axis.horizontal,
+                  //     children: [
+                  //       FilterBtnBg(
+                  //         text: "All",
+                  //       ),
+                  //       FilterBtn(
+                  //         text: "Join",
+                  //       ),
+                  //       FilterBtn(
+                  //         text: "Not join",
+                  //       ),
+                  //     ],
+                  //   ),
+                  // ),
                   Container(
-                    height: 40,
-                    margin: EdgeInsets.only(left: 20, top: 10, bottom: 0),
-                    padding: EdgeInsets.only(bottom: 5),
-                    child: ListView(
-                      scrollDirection: Axis.horizontal,
-                      children: [
-                        FilterBtnBg(
-                          text: "All",
-                        ),
-                        FilterBtn(
-                          text: "Join",
-                        ),
-                        FilterBtn(
-                          text: "Not join",
-                        ),
-                      ],
-                    ),
-                  ),
-                  Container(
-                    padding: EdgeInsets.only(top: 50),
-                    child: ListView(
-                      children: <Widget>[
-                        TaskEventList(),
-                        TaskEventList(),
-                        TaskEventList(),
-                        TaskEventList(),
-                        TaskEventList()
-                      ],
-                    ),
-                  ),
-                  BottomNavigation(
-                    home: "assets/icons/home2.png",
-                    list: "assets/icons/list.png",
-                    user: "assets/icons/user1.png",
-                    event: "assets/icons/event2.png",
-                  )
-                ],
+                padding: EdgeInsets.only(top: 50),
+                child: ListView(
+                  children: <Widget>[
+                    TaskEventList(),
+                    TaskEventList(),
+                    TaskEventList(),
+                    TaskEventList(),
+                    TaskEventList()
+                  ],
+                ),
               ),
+            ),
+            BottomNavigation(
+              home: "assets/icons/home2.png",
+              list: "assets/icons/list.png",
+              user: "assets/icons/user1.png",
+              event: "assets/icons/event2.png",
             ),
           ],
         ),

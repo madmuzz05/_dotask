@@ -1,3 +1,4 @@
+import 'package:dotask/screens/Register/register.dart';
 import 'package:dotask/screens/contains.dart';
 import 'package:dotask/screens/dashboard/dashboard.dart';
 import 'dart:convert';
@@ -70,85 +71,146 @@ class _LoginState extends State<Login> {
     return Scaffold(
       backgroundColor: kPrimaryColor,
       key: _scaffoldKey,
-      body: Container(
-        child: Column(
-          children: [
-            HeaderLogin(size: size),
-            TextTitle(
-              text1: "Welcome",
-              text2: "back",
-            ),
-            Container(
-              padding: EdgeInsets.all(20),
-              child: Form(
-                key: _formKey,
-                child: Column(
-                  children: [
-                    Container(
-                      padding: EdgeInsets.only(bottom: 10),
-                      child: TextFormField(
-                        decoration: InputDecoration(
-                            prefixIcon: Icon(Icons.mail),
-                            hintText: "Email or Username"),
-                        validator: (emailValue) {
-                          email = emailValue;
-                          return null;
-                        },
+      body: SingleChildScrollView(
+        child: Container(
+          child: Column(
+            children: [
+              HeaderLogin(size: size),
+              TextTitle(
+                text1: "Welcome",
+                text2: "back",
+              ),
+              Container(
+                padding: EdgeInsets.all(20),
+                child: Form(
+                  key: _formKey,
+                  child: Column(
+                    children: [
+                      Container(
+                        padding: EdgeInsets.only(bottom: 10),
+                        child: TextFormField(
+                          decoration: InputDecoration(
+                              prefixIcon: Icon(Icons.mail),
+                              hintText: "Email or Username"),
+                          validator: (emailValue) {
+                            email = emailValue;
+                            return null;
+                          },
+                        ),
                       ),
-                    ),
-                    Container(
-                      padding: EdgeInsets.only(top: 10),
-                      child: TextFormField(
-                        decoration: InputDecoration(
-                            prefixIcon: Icon(Icons.lock), hintText: "Password"),
-                        obscureText: true,
-                        validator: (passwordValue) {
-                          password = passwordValue;
-                          return null;
-                        },
+                      Container(
+                        padding: EdgeInsets.only(top: 10),
+                        child: TextFormField(
+                          decoration: InputDecoration(
+                              prefixIcon: Icon(Icons.lock),
+                              hintText: "Password"),
+                          obscureText: true,
+                          validator: (passwordValue) {
+                            password = passwordValue;
+                            return null;
+                          },
+                        ),
                       ),
-                    ),
-                    Container(
-                      padding: EdgeInsets.only(top: 5),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: <Widget>[
-                          Text(
-                            "Forgot Password?",
-                            style: TextStyle(
-                                fontFamily: "Poppins",
-                                fontSize: 12,
-                                fontWeight: FontWeight.w300,
-                                color: kBgColor),
-                          ),
-                        ],
-                      ),
-                    )
-                  ],
+                      Container(
+                        padding: EdgeInsets.only(top: 5),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: <Widget>[
+                            Text(
+                              "Forgot Password?",
+                              style: TextStyle(
+                                  fontFamily: "Poppins",
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w300,
+                                  color: Color(0xFF718355)),
+                            ),
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
                 ),
               ),
-            ),
-            Container(
-              // decoration: BoxDecoration(color: kBgColor),
-              margin: EdgeInsets.only(left: 20, right: 20, top: 80),
-              alignment: Alignment.center,
-              child: ElevatedButton(
-                onPressed: () {
-                  if (_formKey.currentState!.validate()) {
-                    _login();
-                  }
-                },
-                child: Text("Login"),
-                style: ElevatedButton.styleFrom(
-                  primary: Color(0xFF718355),
-                  onPrimary: Colors.white,
-                  minimumSize: Size(265, 47),
-                  shape: StadiumBorder(),
-                  elevation: 0,
+              Container(
+                // decoration: BoxDecoration(color: kBgColor),
+                margin: EdgeInsets.only(left: 20, right: 20, top: 40),
+                alignment: Alignment.center,
+                child: ElevatedButton(
+                  onPressed: () {
+                    if (_formKey.currentState!.validate()) {
+                      _login();
+                    }
+                  },
+                  child: Text(
+                    "Login",
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 16,
+                        fontFamily: "Poppins",
+                        fontWeight: FontWeight.w500),
+                  ),
+                  style: ElevatedButton.styleFrom(
+                    primary: Color(0xFF718355),
+                    onPrimary: Colors.white,
+                    minimumSize: Size(271, 47),
+                    shape: StadiumBorder(),
+                    elevation: 0,
+                  ),
                 ),
               ),
-            ),
-          ],
+              Container(
+                  height: 150,
+                  // decoration: BoxDecoration(color: Colors.black),
+                  margin: EdgeInsets.only(left: 85, right: 80, top: 20),
+                  alignment: Alignment.bottomCenter,
+                  child: Row(
+                    children: [
+                      Text(
+                        "Don’t have  an  account?",
+                        style: TextStyle(
+                            color: kBgColor,
+                            fontSize: 14,
+                            fontFamily: "Poppins",
+                            fontWeight: FontWeight.w500),
+                      ),
+                      TextButton(
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            new MaterialPageRoute(
+                                builder: (context) => Register()),
+                          );
+                        },
+                        child: const Text(
+                          'Sign Up',
+                          style: TextStyle(
+                              color: kTitleColor,
+                              fontSize: 14,
+                              fontFamily: "Poppins",
+                              fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                    ],
+                  )),
+              // Container(
+              //   width: 233,
+              //   height: 21,
+              //   margin: EdgeInsets.only(left: 20, right: 20, top: 40),
+              //   alignment: Alignment.bottomCenter,
+              //   child: Row(
+              //     children: [
+              //       Text(
+              //         "Don't have an account? ",
+              //         style: TextStyle(
+              //             color: kPrimaryColor,
+              //             fontSize: 14,
+              //             fontFamily: "Poppins"),
+              //       ),
+              //     ],
+              //   ),
+              // ),
+            ],
+          ),
         ),
       ),
     );
